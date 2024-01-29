@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+import sys
+
+def prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n%2 == 0 or n % 3 ==0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+def factorize(n):
+    for i in range(2,n):
+        if n % i == 0 and prime(i) and prime(n // i):
+            return max(i, n // i), min(i, n // i)
+
+if len(sys.argv) != 2:
+    print("Usage: factors <file>")
+    sys.exit()
+
+input_file = sys.argv[1]
+
+with open(input_file, 'r') as file:
+    n = int(file.readline().strip())
+    factor1, factor2 = factorize(n)
+    print(f"{n}={factor1}*{factor2}")
+
