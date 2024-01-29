@@ -1,21 +1,7 @@
-#!/usr/bin/python3
-import sys
-
-def factorize(n):
-    factor1 = 2
-    while n % factor1 != 0:
-        factor1 += 1
-    factor2 = n // factor1
-    return max(factor1, factor2), min(factor1, factor2)
-
-if len(sys.argv) != 2:
-    print("Usage: factors <file>")
-    sys.exit()
-
-input_file = sys.argv[1]
-
-with open(input_file, 'r') as file:
-    for line in file:
-        n = int(line.strip())
-        factor1, factor2 = factorize(n)
-        print(f"{n}={factor1}*{factor2}")
+#!/usr/bin/bash
+FILE=$1
+while read NUMBERS;
+do
+        factors=($(factor $NUMBERS))
+        echo "$NUMBERS=$(($NUMBERS/${factors[1]}))*${factors[1]}"
+done < $FILE
